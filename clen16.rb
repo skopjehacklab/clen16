@@ -5,7 +5,7 @@ require 'twitter'
 require 'fileutils'
 require 'keys'
 
-VOTES      = "votes/*/**"
+VOTES      = "votes/*/*.jpg"
 DONE       = "done"
 VOTE_TYPES = {
   'za'       => 'Јас гласав ЗА #цензура #член16',
