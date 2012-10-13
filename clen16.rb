@@ -1,16 +1,19 @@
 # encoding: utf-8
 
+$KCODE = 'utf8'
 require 'rubygems'
 require 'twitter'
 require 'fileutils'
+require 'erb'
 require 'keys'
 
-VOTES      = "votes/*/*.jpg"
+EXTENSION  = "png"
+VOTES      = "votes/*/*.#{EXTENSION}"
 DONE       = "done"
 VOTE_TYPES = {
-  'za'       => 'Јас гласав ЗА #цензура #член16',
-  'protiv'   => 'Јас гласав ПРОТИВ #цензура #член16',
-  'vozdrzan' => 'Јас НЕ гласав ПРОТИВ #цензура #член16'
+  'za'       => 'Јас <%= mp %> гласав ЗА #цензура #член16',
+  'protiv'   => 'Јас <%= mp %> гласав ПРОТИВ #цензура #член16',
+  'vozdrzan' => 'Јас <%= mp %> НЕ гласав ПРОТИВ #цензура #член16'
 }
 
 Twitter.configure do |config|
@@ -30,10 +33,13 @@ def random_tweet
   if images.empty?
     puts 'No more votes'
   else
-    image     = images[rand(images.length)]
-    vote_type = image.split('/')[1]
-    message   = VOTE_TYPES[vote_type]
+    image       = images[rand(images.length)]
+    image_parts = image.split('/')
+    vote_type   = image_parts[1]
+    template    = VOTE_TYPES[vote_type]
+    mp          = image_parts.last.gsub(".#{EXTENSION}", "")
 
+    message = ERB.new(template).result(binding)
     tweet(message, image)
     FileUtils.mv(image, DONE)
   end
