@@ -7,7 +7,7 @@
 git clone git://github.com/skopjehacklab/clen16.git
 ```
 
-Во votes/za votes/vozdrzan votes/protiv треба да ги ги ставиш сликите (*.png) и името на сликите да биде името на пратеникот на кирилица.
+Во votes/za votes/vozdrzan votes/protiv треба да ги ги ставиш сликите (*.png) и името на сликите да биде името на пратеникот на кирилица. Сликите според првото гласање се на https://planet.softver.org.mk/all_imgs.zip
 
 ## Crontab configuration
 ```bash
